@@ -1,0 +1,44 @@
+name: Update admin-shared submodule
+
+on:
+  repository_dispatch:
+    types: [update-submodule]
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout with submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update submodule
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          cd admin-shared
+          git fetch origin main
+          git checkout origin/main
+          cd ..
+          git add admin-shared
+          git commit -m "Auto-update from admin-shared" || echo "No changes"
+
+      - name: Copy admin-shared to docs/
+        run: |
+          rm -rf docs
+          mkdir docs
+          cp -r admin-shared/* docs/
+
+      - name: Thêm file .nojekyll và CNAME
+        run: |
+          touch docs/.nojekyll
+          echo "dashboard.ttvl.io.vn" > docs/CNAME
+
+      - name: Commit và push
+        run: |
+          git add docs
+          git commit -m "Update docs from admin-shared" || echo "No docs changes"
+          git push
