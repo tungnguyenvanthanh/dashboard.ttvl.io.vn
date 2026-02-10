@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <component type="typeof(Microsoft.AspNetCore.Components.Web.HeadOutlet)" render-mode="WebAssembly" />
+
+    <base href="/" />
+
+    <!-- Environment Config (SYNC - Required immediately) -->
+    <script>
+        window.__env = {
+            environment: "Production"  // "Development" hoặc "Production"
+        };
+    </script>
+
+    <!-- ========================================
+         CRITICAL CSS (Preload for fast render)
+         ======================================== -->
+    <link rel="preload" href="_content/MudBlazor/MudBlazor.min.css" as="style">
+    <link rel="preload" href="_content/TTVLDashboard.SharedLibrary/css/app.css" as="style">
+
+    <!-- Core CSS -->
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link href="_content/MudBlazor.Markdown/MudBlazor.Markdown.min.css" rel="stylesheet" />
+
+    <!-- Application CSS -->
+    <link href="_content/TTVLDashboard.SharedLibrary/css/masonry.css" rel="stylesheet" />
+    <link href="_content/TTVLDashboard.SharedLibrary/css/grid-dashboard.css" rel="stylesheet" />
+    <link href="_content/TTVLDashboard.SharedLibrary/css/spacing.css" rel="stylesheet" />
+    <link href="_content/TTVLDashboard.SharedLibrary/css/gradient.css" rel="stylesheet" />
+    <link href="_content/TTVLDashboard.SharedLibrary/css/animate.min.css" rel="stylesheet" />
+    <link href="_content/TTVLDashboard.SharedLibrary/css/hover.css" rel="stylesheet" />
+    <link href="_content/TTVLDashboard.SharedLibrary/css/app.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="AppAdmin.styles.css" rel="stylesheet" />
+
+    <!-- Cropper.js CSS -->
+    <link href="_content/TTVLDashboard.SharedLibrary/plugins/cropperjs/cropper.css" rel="stylesheet" />
+
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/gh/tungnguyenvanthanh/assets-files/plugin/quill/quill.snow.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet" />
+    <link href="_content/MudBlazor.FontIcons.MaterialSymbols/css/font.min.css" rel="stylesheet" />
+
+    <!-- ========================================
+         CRITICAL SCRIPTS (Defer - Non-blocking)
+         ======================================== -->
+    <!-- jQuery (Required by plugins) -->
+    <script src="_content/TTVLDashboard.SharedLibrary/js/jquery/jquery-3.7.1.js" defer></script>
+    <script src="_content/TTVLDashboard.SharedLibrary/js/jquery/jquery-ui.js" defer></script>
+    <script src="_content/TTVLDashboard.SharedLibrary/js/jquery/jquery.ui.touch-punch.min.js" defer></script>
+
+    <!-- MudBlazor -->
+    <script src="_content/MudBlazor/MudBlazor.min.js" defer></script>
+    <script src="_content/MudBlazor.Markdown/MudBlazor.Markdown.min.js" defer></script>
+
+    <!-- Cropper.js Library -->
+    <script src="_content/TTVLDashboard.SharedLibrary/plugins/cropperjs/cropper.js" defer></script>
+
+    <!-- Chart.js -->
+    <script src="_content/TTVLDashboard.SharedLibrary/plugins/chartjs/chart.umd.min.js" defer></script>
+
+</head>
+
+<body>
+    <div id="app" class="min-vh-100 w-100 overflow-y-auto">
+        <div class="loading-progress-content">
+            <svg class="loading-progress">
+                <circle r="40%" cx="50%" cy="50%" />
+                <circle r="40%" cx="50%" cy="50%" />
+            </svg>
+            <div class="loading-progress-text"></div>
+            <img src="https://cdn.jsdelivr.net/gh/tungnguyenvanthanh/assets-files/files/image/logo-dark-ttvl.png" width="300" />
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <!-- ========================================
+         NON-CRITICAL SCRIPTS (Defer - Async load)
+         ======================================== -->
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/gh/tungnguyenvanthanh/assets-files/plugin/quill/quill.js" defer></script>
+    <script src="_content/CurrieTechnologies.Razor.SweetAlert2/sweetAlert2.min.js" defer></script>
+    <script src="_content/TTVLDashboard.SharedLibrary/plugins/lottie/lottie.min.js" defer></script>
+    <script src="_content/TTVLDashboard.SharedLibrary/plugins/beautify/beautify-html.min.js" defer></script>
+
+    <!-- Application Scripts (Load BEFORE Blazor) -->
+    <script src="_content/TTVLDashboard.SharedLibrary/js/device-fingerprint.js" defer></script>
+    <script src="_content/TTVLDashboard.SharedLibrary/js/site.js" defer></script>
+    <script src="js/site.js" defer></script>
+
+    <!-- Monaco Editor (Global loader) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js" defer></script>
+
+    <!-- ========================================
+         BLAZOR FRAMEWORK (Autostart controlled)
+         ======================================== -->
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+
+    <!-- ========================================
+         STARTUP ORCHESTRATION
+         ======================================== -->
+    <script>
+        (async function startApp() {
+            // Wait for critical dependencies
+            let attempts = 0;
+            const maxAttempts = 100; // 5 seconds max wait
+
+            while ((!window.jQuery || !window.TTVLLogger || !window.Cropper) && attempts < maxAttempts) {
+                await new Promise(resolve => setTimeout(resolve, 50));
+                attempts++;
+            }
+
+            // Start Blazor
+            try {
+                await Blazor.start();
+            } catch (error) {
+                console.error('❌ Blazor startup failed:', error);
+            }
+        })();
+    </script>
+
+    <!-- GitHub Pages 404 redirect handler -->
+    <script>
+        (function handleRedirect() {
+            const redirectPath = sessionStorage.getItem('redirectPath');
+            const baseHref = document.querySelector('base')?.getAttribute('href') || '/';
+
+            if (redirectPath && redirectPath.startsWith(baseHref)) {
+                sessionStorage.removeItem('redirectPath');
+                history.replaceState({}, '', redirectPath);
+            } else if (redirectPath) {
+                sessionStorage.removeItem('redirectPath');
+                history.replaceState({}, '', baseHref);
+            }
+        })();
+    </script>
+</body>
+
+</html>

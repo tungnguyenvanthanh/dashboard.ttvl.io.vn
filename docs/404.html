@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <script type="text/javascript">
+		const path = location.pathname;
+
+		// Lưu path gốc để xử lý điều hướng sau
+		sessionStorage.setItem('redirectPath', path);
+
+		// Chuyển hướng về trang chủ (nếu cần)
+		window.location.replace('/');
+	</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+﻿/* ============================================================
+   Grid Dashboard Utilities SCSS
+   ------------------------------------------------------------
+   Bộ SCSS tạo ra các class tiện ích cho layout kiểu Dashboard
+   sử dụng CSS Grid.
+
+   1) Container classes: .grid-cols-4, .grid-cols-md-3
+   2) Item span classes: .span-2, .span-md-3, .span-full
+
+   ============================================================ */
+
+/* Breakpoints của MudBlazor */
+$breakpoints: (
+    xs: 0,
+    sm: 600px,
+    md: 960px,
+    lg: 1280px,
+    xl: 1920px,
+    xxl: 2560px
+);
+
+$max-columns: 12;
+$grid-gap: 16px;
+
+/* Mixin media query */
+@mixin bp-min($name) {
+    $val: map-get($breakpoints, $name);
+    @if $val == 0 {
+        @content;
+    } @else {
+        @media (min-width: $val) {
+            @content;
+        }
+    }
+}
+
+/* 1) Grid Container */
+@for $i from 1 through $max-columns {
+    .grid-cols-#{$i} {
+        display: grid;
+        grid-template-columns: repeat(#{$i}, 1fr);
+        gap: $grid-gap;
+    }
+}
+
+@each $bp, $val in $breakpoints {
+    @include bp-min($bp) {
+        @for $i from 1 through $max-columns {
+            .grid-cols-#{$bp}-#{$i} {
+                display: grid;
+                grid-template-columns: repeat(#{$i}, 1fr);
+                gap: $grid-gap;
+            }
+        }
+    }
+}
+
+/* 2) Grid Item Span */
+@for $i from 1 through $max-columns {
+    .span-#{$i} {
+        grid-column: span #{$i};
+    }
+}
+
+@each $bp, $val in $breakpoints {
+    @include bp-min($bp) {
+        @for $i from 1 through $max-columns {
+            .span-#{$bp}-#{$i} {
+                grid-column: span #{$i};
+            }
+        }
+    }
+}
+
+/* Span full width */
+.span-full {
+    grid-column: 1 / -1;
+}
+
+@each $bp, $val in $breakpoints {
+    @include bp-min($bp) {
+        .span-#{$bp}-full {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+/* 3) Auto-fit và Auto-fill */
+.grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $grid-gap;
+}
+
+.grid-auto-fill {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $grid-gap;
+}
+
+/* 4) Grid alignment */
+.grid-align-start {
+    align-items: start;
+}
+
+.grid-align-center {
+    align-items: center;
+}
+
+.grid-align-end {
+    align-items: end;
+}
+
+.grid-align-stretch {
+    align-items: stretch;
+}

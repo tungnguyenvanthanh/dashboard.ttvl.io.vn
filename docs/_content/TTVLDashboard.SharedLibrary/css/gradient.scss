@@ -1,0 +1,346 @@
+﻿// ============================================================
+// GRADIENT BACKGROUND UTILITIES - HỆ THỐNG GRADIENT TẬP TRUNG
+// ============================================================
+// Quản lý gradient themes tập trung, dễ bảo trì và tái sử dụng
+// Tự động tạo classes: .bg-gradient-{name}, .bg-gradient-{name}-soft,
+// .bg-gradient-{name}-reverse, .bg-gradient-{name}-hover, etc.
+// ============================================================
+
+// ------------------------------------------------------------
+// GRADIENT THEMES CONFIGURATION - CẤU HÌNH GRADIENT THEMES
+// ------------------------------------------------------------
+
+// Danh sách gradient themes với màu sắc và text color tương ứng
+$gradient-themes: ( "purple": ( "start": #667eea, "end": #764ba2, "text": #ffffff, "angle": 135deg ), "pink": ( "start": #f093fb, "end": #f5576c, "text": #ffffff, "angle": 135deg ), "ocean": ( "start": #4facfe, "end": #00f2fe, "text": #ffffff, "angle": 135deg ), "sunset": ( "start": #fa709a, "end": #fee140, "text": #ffffff, "angle": 135deg ), "forest": ( "start": #134e5e, "end": #71b280, "text": #ffffff, "angle": 135deg ), "gold": ( "start": #f7971e, "end": #ffd200, "text": #2d3436, "angle": 135deg ), "deepsea": ( "start": #2c3e50, "end": #3498db, "text": #ffffff, "angle": 135deg ), "candy": ( "start": #ff9a9e, "end": #fecfef, "text": #2d3436, "angle": 135deg ), "northern": ( "start": #00c6ff, "end": #0072ff, "text": #ffffff, "angle": 135deg ), "emerald": ( "start": #348f50, "end": #56b4d3, "text": #ffffff, "angle": 135deg ), "fire": ( "start": #eb3349, "end": #f45c43, "text": #ffffff, "angle": 135deg ), "mint": ( "start": #43e97b, "end": #38f9d7, "text": #2d3436, "angle": 135deg ), "midnight": ( "start": #232526, "end": #414345, "text": #ffffff, "angle": 135deg ), "peach": ( "start": #ffecd2, "end": #fcb69f, "text": #2d3436, "angle": 135deg ), "violet": ( "start": #8e2de2, "end": #4a00e0, "text": #ffffff, "angle": 135deg ), "lime": ( "start": #d4fc79, "end": #96e6a1, "text": #2d3436, "angle": 135deg ), "crimson": ( "start": #c31432, "end": #240b36, "text": #ffffff, "angle": 135deg ), "aqua": ( "start": #1a2980, "end": #26d0ce, "text": #ffffff, "angle": 135deg ), "cherry": ( "start": #fbc2eb, "end": #a6c1ee, "text": #2d3436, "angle": 135deg ), "cosmic": ( "start": #ff00cc, "end": #333399, "text": #ffffff, "angle": 135deg ) );
+
+// ------------------------------------------------------------
+// GRADIENT UTILITIES GENERATOR - TỰ ĐỘNG TẠO GRADIENT CLASSES
+// ------------------------------------------------------------
+
+// Tạo gradient classes cơ bản (.bg-gradient-purple, .bg-gradient-ocean, ...)
+@each $name, $config in $gradient-themes {
+    $start: map-get($config, "start");
+    $end: map-get($config, "end");
+    $text: map-get($config, "text");
+    $angle: map-get($config, "angle");
+
+    // Class gradient cơ bản
+    .bg-gradient-#{$name} {
+        background: linear-gradient($angle, $start 0%, $end 100%) !important;
+        color: $text !important;
+        // Đảm bảo tất cả phần tử con cũng có màu text đúng
+        * {
+            color: inherit !important;
+        }
+    }
+
+    // Variant: Soft gradient (opacity 0.8)
+    .bg-gradient-#{$name}-soft {
+        background: linear-gradient($angle, rgba($start, 0.8) 0%, rgba($end, 0.8) 100%) !important;
+        color: $text !important;
+
+        * {
+            color: inherit !important;
+        }
+    }
+
+    // Variant: Reverse gradient (đảo ngược màu)
+    .bg-gradient-#{$name}-reverse {
+        background: linear-gradient($angle, $end 0%, $start 100%) !important;
+        color: $text !important;
+
+        * {
+            color: inherit !important;
+        }
+    }
+
+    // Variant: Horizontal gradient (90deg)
+    .bg-gradient-#{$name}-horizontal {
+        background: linear-gradient(90deg, $start 0%, $end 100%) !important;
+        color: $text !important;
+
+        * {
+            color: inherit !important;
+        }
+    }
+
+    // Variant: Vertical gradient (180deg)
+    .bg-gradient-#{$name}-vertical {
+        background: linear-gradient(180deg, $start 0%, $end 100%) !important;
+        color: $text !important;
+
+        * {
+            color: inherit !important;
+        }
+    }
+
+    // Variant: Hover effect với animation
+    .bg-gradient-#{$name}-hover {
+        background: linear-gradient($angle, $start 0%, $end 100%);
+        color: $text;
+        transition: all 0.3s ease-in-out;
+
+        * {
+            color: inherit;
+        }
+
+        &:hover {
+            background: linear-gradient($angle, $end 0%, $start 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba($start, 0.3);
+        }
+    }
+
+    // Variant: Subtle background với opacity thấp
+    .bg-gradient-#{$name}-subtle {
+        background: linear-gradient($angle, rgba($start, 0.1) 0%, rgba($end, 0.1) 100%) !important;
+        color: $text !important;
+    }
+
+    // Variant: Border gradient (chỉ viền, không fill)
+    .border-gradient-#{$name} {
+        border: 2px solid transparent;
+        background-image: linear-gradient(white, white), linear-gradient($angle, $start 0%, $end 100%);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+    }
+}
+
+// ------------------------------------------------------------
+// SPECIAL GRADIENT EFFECTS - HIỆU ỨNG ĐẶC BIỆT
+// ------------------------------------------------------------
+
+// Animated gradient (chuyển động liên tục)
+.bg-gradient-animated {
+    $first: map-get(map-get($gradient-themes, "purple"), "start");
+    $second: map-get(map-get($gradient-themes, "purple"), "end");
+    $third: map-get(map-get($gradient-themes, "ocean"), "start");
+    $fourth: map-get(map-get($gradient-themes, "ocean"), "end");
+
+    background: linear-gradient(-45deg, $first, $second, $third, $fourth);
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+    color: white !important;
+
+    * {
+        color: inherit !important;
+    }
+}
+
+// Animated gradient với theme tùy chỉnh
+@each $name, $config in $gradient-themes {
+    $start: map-get($config, "start");
+    $end: map-get($config, "end");
+    $text: map-get($config, "text");
+
+    .bg-gradient-#{$name}-animated {
+        background: linear-gradient(-45deg, $start, $end, lighten($start, 10%), lighten($end, 10%));
+        background-size: 400% 400%;
+        animation: gradient-shift 15s ease infinite;
+        color: $text !important;
+
+        * {
+            color: inherit !important;
+        }
+    }
+}
+
+// Keyframes cho animated gradient
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+// ------------------------------------------------------------
+// GRADIENT TEXT UTILITIES - TEXT VỚI GRADIENT
+// ------------------------------------------------------------
+
+// Text gradient (chữ có màu gradient)
+@each $name, $config in $gradient-themes {
+    $start: map-get($config, "start");
+    $end: map-get($config, "end");
+    $angle: map-get($config, "angle");
+
+    .text-gradient-#{$name} {
+        background: linear-gradient($angle, $start 0%, $end 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }
+}
+
+// ------------------------------------------------------------
+// GRADIENT OVERLAY UTILITIES - LỚP PHỦ GRADIENT
+// ------------------------------------------------------------
+
+// Gradient overlay (dùng cho ảnh nền)
+@each $name, $config in $gradient-themes {
+    $start: map-get($config, "start");
+    $end: map-get($config, "end");
+    $angle: map-get($config, "angle");
+
+    .overlay-gradient-#{$name} {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient($angle, rgba($start, 0.7) 0%, rgba($end, 0.7) 100%);
+            z-index: 1;
+        }
+        // Đảm bảo nội dung hiển thị trên overlay
+        > * {
+            position: relative;
+            z-index: 2;
+        }
+    }
+}
+
+// ------------------------------------------------------------
+// HELPER FUNCTIONS - HÀM HỖ TRỢ
+// ------------------------------------------------------------
+
+// Function lấy gradient value
+@function get-gradient($name, $angle: null) {
+    @if map-has-key($gradient-themes, $name) {
+        $config: map-get($gradient-themes, $name);
+        $start: map-get($config, "start");
+        $end: map-get($config, "end");
+        $default-angle: map-get($config, "angle");
+
+        @if $angle == null {
+            $angle: $default-angle;
+        }
+
+        @return linear-gradient($angle, $start 0%, $end 100%);
+    }
+
+    @return null;
+}
+
+// Function lấy text color của gradient
+@function get-gradient-text($name) {
+    @if map-has-key($gradient-themes, $name) {
+        $config: map-get($gradient-themes, $name);
+        @return map-get($config, "text");
+    }
+
+    @return #ffffff;
+}
+
+// ============================================================
+// SUBTLE GRADIENT BACKGROUNDS WITH BORDER - CHO TRANSFER/ADJUST
+// ============================================================
+
+// ⚠️ QUAN TRỌNG: Đổi tên biến để tránh xung đột với spacing.scss
+// Định nghĩa các màu theo MudBlazor theme (đã thêm prefix "gradient-")
+$gradient-subtle-colors: ( "gradient-primary": #594ae2, // MudBlazor Primary
+"gradient-secondary": #ff4081, // MudBlazor Secondary
+"gradient-tertiary": #1ec8a5, // MudBlazor Tertiary
+"gradient-info": #2196f3, // MudBlazor Info
+"gradient-success": #00c853, // MudBlazor Success
+"gradient-warning": #ff9800, // MudBlazor Warning
+"gradient-error": #f44336, // MudBlazor Error
+"gradient-danger": #dc3545, // Bootstrap Danger
+"gradient-dark": #424242, // MudBlazor Dark
+"gradient-light": #e0e0e0 // MudBlazor Light
+);
+
+// Tự động tạo subtle classes cho tất cả gradient theme colors
+@each $name, $color in $gradient-subtle-colors {
+    .bg-#{$name}-subtle-horizontal {
+        background: linear-gradient(90deg, rgba($color, 0.1) 0%, rgba($color, 0.05) 100%) !important;
+        border-left: 4px solid $color !important;
+    }
+
+    // Variant: Subtle vertical (border top)
+    .bg-#{$name}-subtle-vertical {
+        background: linear-gradient(180deg, rgba($color, 0.1) 0%, rgba($color, 0.05) 100%) !important;
+        border-top: 4px solid $color !important;
+    }
+
+    // Variant: Subtle với border right
+    .bg-#{$name}-subtle-right {
+        background: linear-gradient(-90deg, rgba($color, 0.1) 0%, rgba($color, 0.05) 100%) !important;
+        border-right: 4px solid $color !important;
+    }
+
+    // Variant: Subtle với border bottom
+    .bg-#{$name}-subtle-bottom {
+        background: linear-gradient(-180deg, rgba($color, 0.1) 0%, rgba($color, 0.05) 100%) !important;
+        border-bottom: 4px solid $color !important;
+    }
+
+    // Variant: Subtle với border all around
+    .bg-#{$name}-subtle-bordered {
+        background: rgba($color, 0.05) !important;
+        border: 2px solid rgba($color, 0.3) !important;
+    }
+
+    // Variant: Subtle strong (opacity cao hơn)
+    .bg-#{$name}-subtle-strong {
+        background: linear-gradient(90deg, rgba($color, 0.2) 0%, rgba($color, 0.1) 100%) !important;
+        border-left: 4px solid $color !important;
+    }
+}
+
+// ------------------------------------------------------------
+// USAGE EXAMPLES - VÍ DỤ SỬ DỤNG
+// ------------------------------------------------------------
+
+/*
+  CÁC CLASS ĐƯỢC TẠO TỰ ĐỘNG:
+  
+  1. Gradient cơ bản:
+     .bg-gradient-purple
+     .bg-gradient-ocean
+     .bg-gradient-sunset
+     
+  2. Gradient biến thể:
+     .bg-gradient-purple-soft (opacity 0.8)
+     .bg-gradient-purple-reverse (đảo ngược)
+     .bg-gradient-purple-horizontal (ngang)
+     .bg-gradient-purple-vertical (dọc)
+     .bg-gradient-purple-hover (có hover effect)
+     .bg-gradient-purple-subtle (opacity 0.1)
+     .bg-gradient-purple-animated (chuyển động)
+     
+  3. Border gradient:
+     .border-gradient-purple
+     
+  4. Text gradient:
+     .text-gradient-purple
+     
+  5. Overlay gradient:
+     .overlay-gradient-purple
+     
+  6. Subtle backgrounds (theo gradient theme colors):
+     .bg-gradient-primary-subtle-horizontal
+     .bg-gradient-success-subtle-vertical
+     .bg-gradient-warning-subtle-right
+     .bg-gradient-error-subtle-bottom
+     .bg-gradient-info-subtle-bordered
+     .bg-gradient-danger-subtle-strong
+     
+  7. Sử dụng trong SCSS:
+     background: get-gradient("purple");
+     color: get-gradient-text("purple");
+*/
+
+// ------------------------------------------------------------
+// KẾT THÚC GRADIENT UTILITIES
+// ============================================================

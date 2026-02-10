@@ -1,0 +1,161 @@
+﻿/* ============================================================
+   Masonry Utilities SCSS
+   ------------------------------------------------------------
+   Đây là bộ SCSS tạo ra các class tiện ích cho layout kiểu 
+   Masonry (dùng CSS Multi-Column):
+
+   1) Tạo class đặt số cột cho container:
+        .cols-4
+        .cols-md-3
+        .cols-xl-6
+      → Tự động sinh theo breakpoints của MudBlazor.
+
+   2) Tạo class áp dụng break-inside cho từng item trong Masonry:
+        .break-avoid
+        .break-auto-md
+        .break-avoid-column-xl
+      → Hữu ích để tránh item bị tách giữa cột.
+
+   3) Tạo class kết hợp cột + break-inside:
+        .break-avoid-md-4
+        .break-avoid-xl-3
+      → Một class áp dụng cả column-count (container) 
+        và break-inside (cho toàn bộ con).
+
+   Lưu ý:
+   - Breakpoint theo kiểu mobile-first (min-width).
+   - Break-inside thường áp lên item, nhưng lớp kết hợp 
+     sẽ tự áp break-inside vào tất cả children (> *).
+   - Đã bỏ toàn bộ phần "gap utilities" vì MudBlazor đã có sẵn.
+
+   Tương thích:
+   - break-inside
+   - -webkit-column-break-inside
+   - page-break-inside
+
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   Breakpoints của MudBlazor
+   ------------------------------------------------------------ */
+$breakpoints: ( xs: 0, // < 600px
+sm: 600px, // 600 - 959px
+md: 960px, // 960 - 1279px
+lg: 1280px, // 1280 - 1919px
+xl: 1920px, // 1920 - 2559px
+xxl: 2560px // >= 2560px
+);
+
+/* Số lượng cột tối đa muốn sinh */
+$max-columns: 12;
+
+/* Tất cả giá trị hợp lệ của break-inside */
+$break-inside-keywords: ( auto, avoid, avoid-page, avoid-column, avoid-region, inherit, initial, revert, revert-layer, unset );
+
+/* Khoảng cách cột mặc định (gutter) */
+$masonry-column-gap: 16px;
+
+/* ------------------------------------------------------------
+   Helper: mixin media query theo breakpoint (mobile-first)
+   ------------------------------------------------------------ */
+@mixin bp-min($name) {
+    $val: map-get($breakpoints, $name);
+
+    @if $val == 0 {
+        @content;
+    }
+    @else {
+        @media (min-width: $val) {
+            @content;
+        }
+    }
+}
+
+/* ------------------------------------------------------------
+   1) Sinh class column-count
+      .cols-3
+      .cols-md-4
+   ------------------------------------------------------------ */
+@for $i from 1 through $max-columns {
+    /* Base: không cần breakpoint */
+    .cols-#{$i} {
+        column-count: $i;
+    }
+
+    /* Theo breakpoint */
+    @each $bp, $val in $breakpoints {
+        @include bp-min($bp) {
+            .cols-#{$bp}-#{$i} {
+                column-count: $i;
+            }
+        }
+    }
+}
+
+/* ------------------------------------------------------------
+   2) Sinh class break-inside
+      .break-avoid
+      .break-avoid-md
+   ------------------------------------------------------------ */
+@each $kw in $break-inside-keywords {
+    /* Base */
+    .break-#{$kw} {
+        break-inside: #{$kw};
+        -webkit-column-break-inside: #{$kw};
+        page-break-inside: #{$kw};
+    }
+
+    /* Theo breakpoint */
+    @each $bp, $val in $breakpoints {
+        @include bp-min($bp) {
+            .break-#{$kw}-#{$bp} {
+                break-inside: #{$kw};
+                -webkit-column-break-inside: #{$kw};
+                page-break-inside: #{$kw};
+            }
+        }
+    }
+}
+
+/* ------------------------------------------------------------
+   3) Sinh class kết hợp: break + column
+      .break-avoid-md-4
+      .break-auto-lg-3
+   ------------------------------------------------------------ */
+
+/* 3a) Base classes (không breakpoint) */
+@each $kw in $break-inside-keywords {
+    @for $i from 1 through $max-columns {
+        .break-#{$kw}-#{$i} {
+            column-count: $i;
+            column-gap: $masonry-column-gap;
+            /* Áp break-inside cho từng item */
+            > * {
+                break-inside: #{$kw};
+                -webkit-column-break-inside: #{$kw};
+                page-break-inside: #{$kw};
+            }
+        }
+    }
+}
+
+/* 3b) Responsive classes (theo breakpoint) */
+@each $bp, $val in $breakpoints {
+    @each $kw in $break-inside-keywords {
+        @for $i from 1 through $max-columns {
+            @include bp-min($bp) {
+                .break-#{$kw}-#{$bp}-#{$i} {
+                    column-count: $i;
+                    column-gap: $masonry-column-gap;
+
+                    > * {
+                        break-inside: #{$kw};
+                        -webkit-column-break-inside: #{$kw};
+                        page-break-inside: #{$kw};
+                    }
+                }
+            }
+        }
+    }
+}
