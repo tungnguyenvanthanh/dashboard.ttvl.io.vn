@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "AppAdmin",
   "resources": {
-    "hash": "sha256-e5xeXzukqKod8ODOScuTL74zFv5sELMoJMJiRBaOR9g=",
+    "hash": "sha256-7roU7FicfItR5tCzdYtH5VEn7odMVkMQp79sWClAWjc=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "CurrieTechnologies.Razor.SweetAlert2.lvj7kgyo2r.wasm": "CurrieTechnologies.Razor.SweetAlert2.wasm",
@@ -107,7 +107,7 @@
       "TTVLDashboard.SiteSettingLibrary.rbznfqskzg.wasm": "TTVLDashboard.SiteSettingLibrary.wasm",
       "TTVLDashboard.TenantLibrary.bg3i28t3jx.wasm": "TTVLDashboard.TenantLibrary.wasm",
       "TTVLDashboard.UserLibrary.qwctmlkpcw.wasm": "TTVLDashboard.UserLibrary.wasm",
-      "TTVLDashboard.WarehouseLibrary.hvbkgeb2se.wasm": "TTVLDashboard.WarehouseLibrary.wasm",
+      "TTVLDashboard.WarehouseLibrary.vkz7nraz3w.wasm": "TTVLDashboard.WarehouseLibrary.wasm",
       "TTVLDashboard.WebsiteLibrary.9vbsq9uzhr.wasm": "TTVLDashboard.WebsiteLibrary.wasm",
       "TTVLShareLibrary.hmmb3bvco2.wasm": "TTVLShareLibrary.wasm",
       "AppAdmin.abtkzriy05.wasm": "AppAdmin.wasm",
@@ -240,7 +240,7 @@
       "TTVLDashboard.SiteSettingLibrary.rbznfqskzg.wasm": "sha256-l+nL2aNN/cQxHF+WAwVEc3dG7QEVU0bsI5Mr7C8nLGc=",
       "TTVLDashboard.TenantLibrary.bg3i28t3jx.wasm": "sha256-BSwE/GWIhVivvCfELspXhD7VJmtZ1bvTKE5IOhnJtwE=",
       "TTVLDashboard.UserLibrary.qwctmlkpcw.wasm": "sha256-mrDlFWNyVMdOp7dJxCjPsRD2qqQdnmZs3W2HdktS9yM=",
-      "TTVLDashboard.WarehouseLibrary.hvbkgeb2se.wasm": "sha256-HbGzKdgHd+E4MpF8sErYzMr8bYvYJZKOP11AR9KC5ZU=",
+      "TTVLDashboard.WarehouseLibrary.vkz7nraz3w.wasm": "sha256-IS1h1U4UwX6Ptt6SL0jLRIt8gzaLBIn8noVrmxzXqfg=",
       "TTVLDashboard.WebsiteLibrary.9vbsq9uzhr.wasm": "sha256-6xYOL2AyICuDBTFddh6/wM1shhqtuwMg0dFF9iVXlQY=",
       "TTVLShareLibrary.hmmb3bvco2.wasm": "sha256-SSZICWg52j5Tr7P45mWp6jJjJ8ruLCjK61hyIUsQgtM=",
       "AppAdmin.abtkzriy05.wasm": "sha256-ZsBmaZykM6kl5eYYVf0viYG/Skktt63uylLvOA0RnTs="
