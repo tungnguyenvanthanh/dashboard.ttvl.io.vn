@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "AppAdmin",
   "resources": {
-    "hash": "sha256-Ip+yoxEO0cfFCqdmnJBOlZLC/UcdmAbDCnc2pxzxGQ8=",
+    "hash": "sha256-e5xeXzukqKod8ODOScuTL74zFv5sELMoJMJiRBaOR9g=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "CurrieTechnologies.Razor.SweetAlert2.lvj7kgyo2r.wasm": "CurrieTechnologies.Razor.SweetAlert2.wasm",
@@ -97,7 +97,7 @@
       "System.Private.CoreLib.e7iponv8ow.wasm": "System.Private.CoreLib.wasm",
       "TTVLDashboard.BlogLibrary.6epap2ybe3.wasm": "TTVLDashboard.BlogLibrary.wasm",
       "TTVLDashboard.CalendarLibrary.kp5dag4qod.wasm": "TTVLDashboard.CalendarLibrary.wasm",
-      "TTVLDashboard.ECommerceLibrary.umow3z13am.wasm": "TTVLDashboard.ECommerceLibrary.wasm",
+      "TTVLDashboard.ECommerceLibrary.qwj7tyy6fs.wasm": "TTVLDashboard.ECommerceLibrary.wasm",
       "TTVLDashboard.HelpCenterLibrary.aeo83tv9ha.wasm": "TTVLDashboard.HelpCenterLibrary.wasm",
       "TTVLDashboard.HouseRentalLibrary.057n0zc9a3.wasm": "TTVLDashboard.HouseRentalLibrary.wasm",
       "TTVLDashboard.OurTeamLibrary.c9csm36c3a.wasm": "TTVLDashboard.OurTeamLibrary.wasm",
@@ -230,7 +230,7 @@
       "System.7mkjnfwul0.wasm": "sha256-H4K9w0OHWwZCaMDfVwQjW0dSqnnS/iuCkysBB+Q2c3A=",
       "TTVLDashboard.BlogLibrary.6epap2ybe3.wasm": "sha256-DoBEJ/pue4AKlPRZB0mP+tnUIkABHCqAxAhQEv9DmkM=",
       "TTVLDashboard.CalendarLibrary.kp5dag4qod.wasm": "sha256-2FeR2Y+nPN+49aBTeSRq9iZKXbRGkN8ByECY3Hrb8Ec=",
-      "TTVLDashboard.ECommerceLibrary.umow3z13am.wasm": "sha256-tmMk9Rw/Ssxlb7Qupc8fC/M2hTErsOh1C3VHs07lsyc=",
+      "TTVLDashboard.ECommerceLibrary.qwj7tyy6fs.wasm": "sha256-igV7BCMuHx9yXqabvD+nuRIG5tV1oCdGBgTBLebWliw=",
       "TTVLDashboard.HelpCenterLibrary.aeo83tv9ha.wasm": "sha256-fivsuC1c5zy0gvy4THHjB7H6K5SOOGHEcTCT/L+ts+k=",
       "TTVLDashboard.HouseRentalLibrary.057n0zc9a3.wasm": "sha256-HBCQdNlCGjPei7JUcqR/AeL5saHZBxKurBPaI8XLvBU=",
       "TTVLDashboard.OurTeamLibrary.c9csm36c3a.wasm": "sha256-EE84MNeEaMMN/tpMEzHhIQmRXIQ5DvIkmTNarluMWTc=",
